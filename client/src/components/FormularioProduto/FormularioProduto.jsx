@@ -10,13 +10,34 @@ import Image from "react-bootstrap/Image";
 import { useForm, Watch } from "react-hook-form";
 
 // Importando o hook de produtos
-import { useInserirProduto } from "../../hooks/useProdutos";
+import {
+  useInserirProduto,
+  useBuscarProdutoPorId,
+  useAtualizarProduto,
+} from "../../hooks/useProdutos";
+
+// Navigate - transitar entre páginas, params - pegar o id fornecido na url
+import { useNavigate, useParams } from "react-router-dom";
+
+// UseState- monitar variáveis e useffect pra realizar algo quando o componente carregar
+import { useState, useEffect } from "react";
 
 const FormularioProduto = (props) => {
 
-//IMPORTAÇÂO DAS FUNÇÕES DO HOOK USEPRODUTOS
-//usando a função de inserir produto
-const { inserirProduto } = useInserirProduto();
+  //IMPORTAÇÂO DAS FUNÇÕES DO HOOK USEPRODUTOS
+  //usando a função de inserir produto
+  const { inserirProduto } = useInserirProduto();
+
+  //usando a função de buscar o produto e atualizar
+  const { buscarProdutoPorId } = useBuscarProdutoPorId();
+  const { atualizarProduto } = useAtualizarProduto();
+
+  // Guardando o id do produto vindo da url
+  const { id } = useParams();
+
+  // Navigate para trocar de paginas
+  const navigate = useNavigate();
+
 
   // register = cria um objeto com os valores retirados dos inputs
   // handleSumbit = envia os dados formulário, caso dê erro ou sucesso
@@ -28,6 +49,45 @@ const { inserirProduto } = useInserirProduto();
     watch,
     reset
   } = useForm();
+
+  // CASO O FORMULÁRIO SEJA DE EDIÇÃO, BUSCAR O PRODUTO ID
+  if (props.page === "editar") {
+    // Variavel que controla se o produto já foi carregado
+    const [carregado, setCarregado] = useState();
+
+     // Effect pra buscar o produto assim que o componente for montado
+    useEffect(() => {
+      async function fetchProduto() {
+        try {
+          // Guarda as informações do produto na variável
+          const produto = await buscarProdutoPorId(id);
+          console.log(produto);
+
+          // Se houver produto, reseta o formulário com os dados do produto
+          if (produto && !carregado) {
+            reset({
+              codigo: produto.codigo,
+              nome: produto.nome,
+              descricao: produto.descricao,
+              tipoProduto: produto.tipoProduto,                 
+              valor: produto.valor,
+              dataEntrada: produto.dataEntrada,
+              dataValidade: produto.dataValidade,           
+            });
+            //Evita chamadas múltiplas do reset
+            setCarregado(true);
+          }
+        } catch (erro) {
+          console.log(("Erro ao buscar o produto:", erro));
+          alert("Produto não encontrado");
+          navigate("/home");
+        }
+      }
+      fetchProduto();
+    }, []);
+  }
+
+
 
   // FUNÇÕES QUE LIDAM COM O SUCESSO OU ERRO DO FORMUÁRIO
   // Função para caso dê certo na validação do formulário
@@ -41,7 +101,11 @@ const { inserirProduto } = useInserirProduto();
       alert("Produto cadastrado com sucesso!");
     } else {
       // Depois nòis ve
+       //Envia o objeto data para o hook atualizar o produto
+      atualizarProduto(data, id);
+      alert("Produto atualizado com sucesso");
     }
+    navigate("/home")
   };
 
   // Caso tenha algum erro no formulário, mostra as mensagens de erro nos campos
