@@ -55,7 +55,7 @@ const VerProdutos = () => {
 
   return (
     <div>
-      <h1 className="text-center"> Estoque </h1>
+      <h1 className="text-center text-white"> Estoque </h1>
 
       {/* INICIO FILTRO */}
       <div className="w-75 mx-auto d-flex justify-content-center gap-2 flex-wrap">
@@ -74,7 +74,10 @@ const VerProdutos = () => {
       {/* FIM FILTRO */}
 
        {/* INICIO TABELA */}
-        <Table striped bordered hover>
+        {/* INICIO TABELA */}
+        <div className="d-flex justify-content-center">
+          <div className="w-75">
+            <Table striped bordered hover responsive className="text-center">
           {/* Cabeçalho da tabela */}
           <thead>
               <tr>
@@ -92,7 +95,7 @@ const VerProdutos = () => {
           { produtosFiltrados.length > 0 ?
           ( produtosFiltrados.map((pro) => (
               <tr key={pro.id}>
-                <td> {pro.id}</td>
+                
                 <td> {pro.nome}</td>
                 <td> {pro.codigo}</td>
                 <td> {pro.descricao}</td>
@@ -122,6 +125,8 @@ const VerProdutos = () => {
           (<tr> <td colSpan={9} className="text-center"> Nenhum cliente encontrado</td> </tr>)}
           </tbody>
         </Table>
+        </div>
+      </div>
       {/* FIM TABELA */}
     </div>
   )

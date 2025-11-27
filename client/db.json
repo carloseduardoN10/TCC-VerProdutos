@@ -3,16 +3,16 @@
     {
       "id": "1",
       "nome": "Admnistrador",
-      "email": "admin17@gmail.com",
-      "senha": "123",
+      "email": "admin@gmail.com",
+      "senha": "1",
       "tipo": "admin",
       "imagemUrl": "https://i.ytimg.com/vi/mMxBYLbyWLw/hq2.jpg?sqp=-oaymwEoCOADEOgC8quKqQMcGADwAQH4AYYCgALgA4oCDAgAEAEYRyBLKHIwDw==&rs=AOn4CLC1G7W20xNWxDV1ozQlQe2Tyns_5g"
     },
     {
       "id": "2",
       "nome": "Gerente",
-      "email": "gerente18@gmail.com",
-      "senha": "123",
+      "email": "gerente@gmail.com",
+      "senha": "2",
       "tipo": "gerente",
       "imagemUrl": "https://i.pinimg.com/736x/c5/ff/57/c5ff57e4b118ef87bae340068123cbe7.jpg"
     },
@@ -20,7 +20,7 @@
       "id": "3",
       "nome": "Funcionário",
       "email": "funcionario@gmail.com",
-      "senha": "12",
+      "senha": "3",
       "tipo": "Funcionário",
       "imagemUrl": "https://i.pinimg.com/736x/b2/79/44/b2794415016ee72dcf75fdc904a3c7f5.jpg"
     }
@@ -35,6 +35,16 @@
       "dataEntrada": "2025-11-06",
       "dataValidade": "2026-01-23",
       "id": "7aba"
+    },
+    {
+      "id": "0637",
+      "nome": "sdlaa",
+      "codigo": "123",
+      "descricao": "fadsfdsfdsfsdf",
+      "dataEntrada": "2025-11-20",
+      "tipoProduto": "dd",
+      "dataValidade": "2026-02-26",
+      "valor": "10"
     }
   ]
 }
